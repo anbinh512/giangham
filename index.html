@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>snvv</title>
+<title>giangham</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
@@ -15,19 +15,21 @@
 const CONFIG = {
 
   /* ───────── 1. MÀN BẮT ĐẦU (nền đen, chữ trắng) ───────── */
-  pageTitle:  "snvv",   // tên hiện trên tab trình duyệt
+  pageTitle:  "giangham",   // tên hiện trên tab trình duyệt
   introTitle: "Món quà từ An Bình\n(người đzai số 1 thế giới)",   // dòng chữ to ở giữa màn hình
-  introHint:  "chạm vào để tiếp tục", // dòng chữ nhỏ nhấp nháy bên dưới
+  introHint:  "chạm để tiếp tục", // dòng chữ nhỏ nhấp nháy bên dưới
   introBg:    "#000000",              // màu nền  (vd "#1a1a2e", "#000000")
   introColor: "#ffffff",              // màu chữ
 
 
-  /* ───────── 2. ĐẾM NGƯỢC & CHỮ CHẠY ───────── */
+  /* ───────── 2. ĐÔI MẮT + ĐẾM NGƯỢC & CHỮ CHẠY ───────── */
   countdown:   ["3", "2", "1"],                     // các số đếm ngược (thêm/bớt tùy ý)
   words:       ["HAPPY", "BIRTHDAY", "TO", "Giang"],  // các từ hiện lần lượt
   countdownMs: 900,                                 // mỗi số hiện bao lâu (1000 = 1 giây)
   wordMs:      800,                                 // mỗi từ hiện bao lâu
-  rainChars:   "♥♡01HAPPYBIRTHDAY♥❀",              // các ký tự rơi như "mưa" ở nền
+  eyeColor:    "#00e5ff",   // màu đôi mắt phát sáng (vd "#ff4fa3" = hồng, "#7CFF6B" = xanh lá)
+  petalColor:  "#ff4f7b",   // màu những cánh hoa nhỏ bay lơ lửng ở nền
+  petals:      true,        // false = tắt cánh hoa bay
 
 
   /* ───────── 3. MÀN HAMSTER VÀ BÁNH KEM ───────── */
@@ -42,7 +44,7 @@ const CONFIG = {
 
 
   /* ───────── 5. CÁC TRANG TRONG SÁCH ───────── */
-  barText: "chạm vào để sang trang",   // dòng nhắc phía trên cuốn sách
+  barText: "chạm để lật trang=))",   // dòng nhắc phía trên cuốn sách
 
   // Mỗi mục { left:..., right:... } = 1 lần mở sách (trang trái + trang phải).
   // Muốn thêm trang: copy 1 mục rồi dán thêm vào (nhớ có dấu phẩy ở cuối).
@@ -68,10 +70,10 @@ const CONFIG = {
 
   /* ───────── 6. HỘP QUÀ Ở CUỐI ───────── */
   giftHint:   "chạm vào để nhận quà 🎁",
-  finalTitle: "Tặng m bó hoa 🌹",
+  finalTitle: "Tặng m bó hoa🌹",
   finalWish:  "Chúc mừng sinh nhật!\nMong tuổi mới rực rỡ như đóa hoa này,\nluôn xinh đẹp và ít gửi mấy chị trên tik cho tôi=)).",
   finalSign:  "— ngdzs1tg",
-  replayText: "↻ bấm để xem lại",
+  replayText: "↻ bấm để coi lại",
 
 
   /* ───────── 7. NHẠC NỀN ───────── */
@@ -114,10 +116,27 @@ const CONFIG = {
   #sparkle i{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--pink);opacity:.2;animation:tw 3s ease-in-out infinite}
   @keyframes tw{50%{opacity:.85;transform:scale(1.6)}}
 
-  /* ===== Màn 1: mưa chữ + đếm ngược ===== */
-  #rain{position:absolute;inset:0;width:100%;height:100%;opacity:.55}
-  #big{position:relative;font-size:clamp(44px,16vw,130px);color:var(--pink);font-weight:700;letter-spacing:3px;
-    text-shadow:0 0 0 #fff,3px 3px 0 #fff,-3px -3px 0 #fff,3px -3px 0 #fff,-3px 3px 0 #fff,0 0 24px #fff;text-align:center}
+  /* ===== Màn 1: đôi mắt phát sáng + đếm ngược ===== */
+  #s1{gap:clamp(22px,6vh,46px);overflow:hidden}
+  #petals{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  #petals i{position:absolute;top:-6vh;border-radius:60% 0 60% 0;opacity:0;animation:petalfall linear infinite}
+  @keyframes petalfall{0%{transform:translate(0,0) rotate(0);opacity:0}10%{opacity:.85}90%{opacity:.6}
+    100%{transform:translate(var(--sx,30px),112vh) rotate(380deg);opacity:0}}
+  .eyes{position:absolute;left:0;right:0;bottom:calc(50% + clamp(34px,8vh,64px));display:flex;justify-content:center;
+    gap:clamp(26px,9vw,64px);animation:look 5.5s ease-in-out 1s infinite}
+  /* liếc trái – liếc phải */
+  @keyframes look{0%,8%{transform:translateX(0)}20%,38%{transform:translateX(calc(-1 * clamp(12px,4vw,22px)))}
+    50%,52%{transform:translateX(0)}64%,82%{transform:translateX(clamp(12px,4vw,22px))}94%,100%{transform:translateX(0)}}
+  .eye{width:clamp(66px,23vw,118px);height:clamp(66px,23vw,118px);border-radius:28%;
+    background:linear-gradient(180deg,#d6fdff 0%,var(--eye) 60%);
+    box-shadow:0 0 8px var(--eye),0 0 22px color-mix(in srgb,var(--eye) 70%,transparent),0 0 48px color-mix(in srgb,var(--eye) 40%,transparent),inset 0 -6px 14px rgba(255,255,255,.25);
+    animation:eyein .8s cubic-bezier(.2,1.5,.4,1) both,eyeblink 3.4s ease-in-out 1.2s infinite,eyeglow 2.4s ease-in-out infinite}
+  @keyframes eyein{from{transform:scale(.2);opacity:0}to{transform:scale(1);opacity:1}}
+  @keyframes eyeblink{0%,91%,100%{transform:scaleY(1)}95%{transform:scaleY(.08)}}
+  @keyframes eyeglow{50%{filter:brightness(1.18)}}
+  #big{position:relative;min-height:1.4em;font-family:"Courier New",ui-monospace,monospace;font-size:clamp(28px,9.5vw,60px);
+    color:var(--pink);font-weight:700;letter-spacing:3px;text-align:center;
+    text-shadow:0 0 0 #fff,2px 2px 0 #fff,-2px -2px 0 #fff,2px -2px 0 #fff,-2px 2px 0 #fff,0 0 16px #fff}
   #big.pop{animation:pop .5s cubic-bezier(.2,1.6,.4,1)}
   @keyframes pop{from{transform:scale(.3);opacity:0}to{transform:scale(1);opacity:1}}
 
@@ -178,8 +197,6 @@ const CONFIG = {
   @keyframes fall{to{transform:translate(var(--dx),110vh) rotate(var(--rot))}}
 
   /* nút tắt/bật nhạc */
-  #mute{position:fixed;top:calc(env(safe-area-inset-top) + 10px);right:12px;z-index:20;width:40px;height:40px;border-radius:50%;
-    border:0;background:var(--pink-soft);color:var(--pink);font-size:18px;display:none;cursor:pointer}
 </style>
 </head>
 <body>
@@ -197,7 +214,6 @@ const CONFIG = {
 </svg>
 
 <div id="sparkle"></div>
-<button id="mute" aria-label="Bật/tắt nhạc">♫</button>
 
 <!-- Màn 0 -->
 <div class="screen on" id="s0">
@@ -207,7 +223,8 @@ const CONFIG = {
 
 <!-- Màn 1 -->
 <div class="screen" id="s1">
-  <canvas id="rain"></canvas>
+  <div id="petals"></div>
+  <div class="eyes"><div class="eye"></div><div class="eye"></div></div>
   <div id="big"></div>
 </div>
 
@@ -381,7 +398,7 @@ $('cakeTitle').textContent  = CONFIG.cakeTitle;
 /* màu sắc */
 const C = CONFIG.colors, rs = document.documentElement.style;
 rs.setProperty('--pink', C.main); rs.setProperty('--pink-soft', C.soft);
-rs.setProperty('--rose', C.rose); rs.setProperty('--ink', C.text);
+rs.setProperty('--rose', C.rose); rs.setProperty('--eye', CONFIG.eyeColor); rs.setProperty('--ink', C.text);
 
 /* màn bắt đầu */
 $('s0').style.background = CONFIG.introBg;
@@ -402,26 +419,17 @@ $('coverImg').src = asset(CONFIG.cover);
   }
 })();
 
-/* ---------- Mưa chữ màu hồng trên nền trắng ---------- */
-const cv = $('rain'), cx = cv.getContext('2d');
-let rainOn = false, drops = [], FS = 18;
-const CH = CONFIG.rainChars;
-function sizeRain(){
-  cv.width = innerWidth; cv.height = innerHeight;
-  drops = Array.from({length: Math.ceil(cv.width/FS)}, () => -Math.random()*cv.height/FS);
-  cx.fillStyle = "#fff"; cx.fillRect(0,0,cv.width,cv.height);
-}
-addEventListener('resize', sizeRain);
-function rainLoop(){
-  if(!rainOn) return;
-  cx.fillStyle = "rgba(255,255,255,.12)"; cx.fillRect(0,0,cv.width,cv.height);
-  cx.fillStyle = CONFIG.colors.main; cx.font = FS+"px monospace";
-  drops.forEach((y,i) => {
-    cx.fillText(CH[Math.floor(Math.random()*CH.length)], i*FS, y*FS);
-    drops[i] = (y*FS > cv.height && Math.random() > .975) ? 0 : y+1;
-  });
-  setTimeout(() => requestAnimationFrame(rainLoop), 50);
-}
+/* ---------- Cánh hoa bay lơ lửng ở màn đôi mắt ---------- */
+(function(){
+  const box = $('petals');
+  if(!CONFIG.petals) return;
+  for(let i=0;i<34;i++){
+    const d = document.createElement('i'), s = 4 + Math.random()*6;
+    d.style.cssText = `left:${Math.random()*100}%;width:${s}px;height:${s*1.3}px;background:${CONFIG.petalColor};`+
+      `animation-duration:${6+Math.random()*7}s;animation-delay:${-Math.random()*10}s;--sx:${(Math.random()*120-40)|0}px`;
+    box.appendChild(d);
+  }
+})();
 async function showBig(t, ms){
   const b = $('big'); b.textContent = t;
   b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop');
@@ -429,8 +437,7 @@ async function showBig(t, ms){
 }
 
 /* ---------- Nhạc ---------- */
-const bgm = $('bgm'), muteBtn = $('mute');
-muteBtn.onclick = e => { e.stopPropagation(); bgm.muted = !bgm.muted; muteBtn.textContent = bgm.muted ? "✕" : "♫"; };
+const bgm = $('bgm');
 
 /* ---------- Luồng chính ---------- */
 let started = false;
@@ -439,13 +446,12 @@ $('s0').addEventListener('click', async () => {
   if(CONFIG.music){
     bgm.src = asset(CONFIG.music); bgm.loop = CONFIG.musicLoop; bgm.volume = CONFIG.musicVolume;
     bgm.play().catch(()=>{});
-    muteBtn.style.display = "block";
   }
-  show('s1'); sizeRain(); rainOn = true; rainLoop();
+  show('s1');
   await sleep(700);
   for(const n of CONFIG.countdown) await showBig(n, CONFIG.countdownMs);
   for(const w of CONFIG.words)     await showBig(w, CONFIG.wordMs);
-  rainOn = false; $('big').textContent = "";
+  $('big').textContent = "";
   show('s2'); await sleep(CONFIG.cakeSeconds*1000);
   show('s3');
 });
